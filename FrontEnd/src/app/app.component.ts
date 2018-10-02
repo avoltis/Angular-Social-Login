@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FrontEnd Login';
+
+  constructor(private apiService: ApiService) { }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnInit() {
+    this.apiService.getMessages();
+  }
 }

@@ -1,8 +1,20 @@
 var express = require('express');
-var app =  express();
+var cors = require('cors');
+var app = express();
 
-app.get('/', (req, res) => {
-    res.send('hello world')
+var posts = [
+    {
+        message: "voltis"
+    },
+    {
+        message: "Agolli"
+    }
+]
+
+app.use(cors());
+
+app.get('/posts', (req, res) => {
+    res.send(posts)
 });
 
 app.listen(3000);
