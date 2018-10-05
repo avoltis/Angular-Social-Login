@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'register',
-  template: `
+    // tslint:disable-next-line:component-selector
+    selector: 'register',
+    template: `
         <mat-card>
         <mat-card-header>
             <mat-card-title>
@@ -13,12 +13,12 @@ import { Component } from '@angular/core';
         <mat-card-content>
           <form>
                <mat-form-field>
-                   <input matInput placeholder="email" type="email">
+                   <input [(ngModel)]="registerData.email" name="email" matInput placeholder="email" type="email">
                </mat-form-field>
                <mat-form-field>
-                    <input matInput placeholder="password" type="password">
+                    <input [(ngModel)]="registerData.password" name="password" matInput placeholder="password" type="password">
                </mat-form-field>
-               <button mat-raised-button color="primary">Register</button>
+               <button (click)="post()" mat-raised-button color="primary">Register</button>
          </form>
         </mat-card-content>
         </mat-card>
@@ -26,5 +26,9 @@ import { Component } from '@angular/core';
 })
 
 export class RegisterComponent {
+    registerData = {};
 
+    post() {
+        console.log(this.registerData);
+    }
 }
