@@ -20,7 +20,18 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/posts', (req, res) => {
-    res.send(posts);
+    res.send(post);
+});
+
+app.get('/users', async (req, res) => {
+    try {
+        var users = await User.find({}, '-pwd -__v');
+        res.send(users);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+
 });
 
 app.post('/register', (req, res) => {
