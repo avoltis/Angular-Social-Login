@@ -19,4 +19,8 @@ export class ApiService {
             this.users = res.json();
         });
     }
+
+    getProfile(id) {
+        return this.http.get('http://localhost:3000/profile/' + id);
+    }
 }
