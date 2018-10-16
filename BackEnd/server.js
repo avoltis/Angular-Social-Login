@@ -13,17 +13,19 @@ mongoose.Promise = Promise;
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 app.get('/posts/:id', async (req, res) => {
 
     var author = req.params.id;
-    var posts = await Post.find({author});
+    var posts = await Post.find({ author });
 
     res.send(posts);
 });
 
-app.post('/post', (req, res) => {
+app.post('/post', auth.checkAuthenticated, (req, res) => {
     var postData = req.body;
-    postData.author = '5bb47d05abb65c1db0f9a25a';
+    postData.author = req.userId;
 
     var post = new Post(postData);
 
@@ -63,5 +65,5 @@ mongoose.connect('mongodb://test:test12@ds119993.mlab.com:19993/pssocial', { use
     }
 });
 
-app.use('/auth', auth);
+app.use('/auth', auth.router);
 app.listen(3000);
