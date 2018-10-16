@@ -8,11 +8,12 @@ router.post('/register', (req, res) => {
     var userData = req.body;
 
     var user = new User(userData);
-    user.save((err, result) => {
+    user.save((err, newUser) => {
         if (err) {
-            console.log('saving user error');
+            return res.status(500).send({ message: 'Error Saving user' })
         }
-        res.sendStatus(200);
+
+        createSendToken(res, newUser);
     });
 });
 
@@ -29,14 +30,18 @@ router.post('/login', async (req, res) => {
             return res.status(401).send({ message: 'Email or password is invalid' })
         }
 
-        var payload = { sub: user._id };
-
-        var token = jwt.encode(payload, '123') // "123" secret for encoding must be put into configs
-
-        res.status(200).send({ token });
+        createSendToken(res, user);
     });
-
 });
+
+function createSendToken(res, user) {
+
+    var payload = { sub: user._id };
+
+    var token = jwt.encode(payload, '123') // "123" secret for encoding must be put into configs
+
+    res.status(200).send({ token });
+}
 
 var auth = {
     router,
