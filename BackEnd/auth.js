@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).send({ message: 'Email or password is invalid' })
         }
 
-        var payload = {};
+        var payload = { sub: user._id };
 
         var token = jwt.encode(payload, '123') // "123" secret for encoding must be put into configs
 
