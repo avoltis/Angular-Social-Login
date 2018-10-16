@@ -44,6 +44,6 @@ export class ProfileComponent {
     ngOnInit() {
         // tslint:disable-next-line:prefer-const
         let id = this.route.snapshot.params.id;
-        this.apiservice.getProfile(id).subscribe(data => this.profile = data.json());
+        this.apiservice.getProfile(id).subscribe(data => this.profile = data);
     }
 }
